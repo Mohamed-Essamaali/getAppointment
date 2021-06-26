@@ -28,3 +28,49 @@
     transform: rotate(360deg);
   }
 }
+
+.days {
+  width:  90%;
+
+  margin: 0 2.5%;
+  padding: 1% 2.5%;
+  display: flex;
+  flex-wrap: wrap;
+}
+  .daysHeader{
+    display: flex;
+    width: 90%;
+    margin: 0 2.5%;
+    padding: 1% 2.5%
+  }
+  .header-name{
+    padding: 1.5%;
+    border: 1px solid grey;
+    width: 12%;
+    font-weight: 700;
+  }
+
+
+.oneDay {
+  width: 11%;
+  padding: 1.5%;
+  border: 1px solid grey
+  
+}
+.current {
+  background-color: rgb(109, 131, 126);
+}
+.nav-button {
+  width:90%;
+  margin: 0 2.5%;
+  padding: 1% 2.5%;
+  display: flex;
+  justify-content: flex-end;
+}
+.nav-button div {
+  width: 6%;
+  padding: 1%;
+  border: 1px solid grey;
+  border-radius: 10px;
+  background-color: bisque;
+}

@@ -17,18 +17,21 @@ router.get('/users/:id', async (req,res,next)=>{
 })
 
 // add user
-router.post('/users', async (req,res,next)=>{
-    const newUser = await Users.add(req.body)
-    res.status(200).json(newUser)
+router.post('/users', (req,res,next)=>{
+    
+    
+        const newUser =  Users.add(req.body)
+        res.status(200).json(newUser)
+   
    
     
 })
 
 
 // update user based on id
-router.put('/users/:id',(req,res,next)=>{
+router.put('/users/:id', (req,res,next)=>{
     const id = req.params
-    updatedUser = Users.update(id,req.body)
+    const updatedUser = Users.update(id,req.body)
     res.status(200).json(updatedUser)
 })
 //delete user 

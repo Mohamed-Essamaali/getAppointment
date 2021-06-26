@@ -12,6 +12,7 @@ const findById =  (id)=>{
 }
 const add =  async user=>{
     const [id] = await db('users').insert(user)
+    console.log('id to add ',id)
     return findById(id)
 }
 
