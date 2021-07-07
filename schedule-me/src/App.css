@@ -74,3 +74,22 @@
   border-radius: 10px;
   background-color: bisque;
 }
+.full {
+  color: rgb(190, 185, 185);
+}
+.slots-container{
+  display: flex;
+  width: 90%;
+  flex-wrap: wrap;
+  margin: 1% 5%;
+
+}
+.one-slot{
+  padding:1% 1.5%;
+  color:black;
+  font-weight: 650;
+  border: 1px solid grey;
+  margin: 2.5%;
+  width: 25%
+
+}
