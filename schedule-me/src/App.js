@@ -7,15 +7,21 @@ import Navs from './components/Navs'
 import Confirmation from './components/confirmation';
 import AdminList from './adminList';
 import HomePage from './components/homePage';
+import Register from './components/user/register'
   
 
 
 function App() {
   return (
-    <div className="App">
+    <div exact className="App">
+      <Navs/>
+      
+      <Route path='/register'>
+        <Register/>
+      </Route>
       
       {/* protected route ----protected route below -------*/}
-    {/* <Navs/> */}
+    
     <Route exact path='/admin'>
       <AdminList/>
     </Route>
@@ -24,7 +30,7 @@ function App() {
    <Route exact path='/'>
       <HomePage/>
     </Route>
-    
+
     <Route exact path='/calendar'>
       <Calendar/>
     </Route>
