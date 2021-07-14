@@ -1,20 +1,15 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useContext, useEffect} from 'react'
 import {Route, Link, useParams,useHistory} from 'react-router-dom'
 import Slot from '../components/oneSlot'
+import { GlobalContext } from '../context/globalContext'
 
 const Calendar = ()=>{
-    const initialData = {
-        day: new Date().getDate(),
-        month: new Date().getMonth()+1,
-        task:'',
-        completed:false
-    }
-    const[tasks,setTasks] = useState([initialData])
+    let {task,setTask,slots,setSlots} = useContext(GlobalContext)
     // const[startIndex,setStartIndex]= useState(0)
     const {push} = useHistory()
     const[currentMonth,setCurrentMonth] = useState(new Date().getMonth()+1)
     const[prevMonth,setPrevMonth] = useState(currentMonth-1)
-    const[currentDate,setCurrentDate] = useState(new Date(new Date().getFullYear(),currentMonth,0))
+    // const[currentDate,setCurrentDate] = useState(new Date(new Date().getFullYear(),currentMonth,0))
     console.log('current day ',new Date().getDate())
     const months = ['January', 'Feb','March', "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -31,12 +26,12 @@ const Calendar = ()=>{
     let indexFirstDay = firstDay.getDay()
     let startIndex = 2
     // starting index prev month on current view 
-    if (numPrevDays==30){
+    if (numPrevDays===30){
         startIndex = 31
     }
-    else if(numPrevDays==31){
+    else if(numPrevDays===31){
         startIndex = 32
-    }else if(numPrevDays==29){
+    }else if(numPrevDays===29){
         startIndex = 30
     }
 
@@ -58,29 +53,17 @@ const Calendar = ()=>{
         }
     }
 
-    const[slots,setSlots]=useState([])
-    
+  
 
-    const displayOneSlot = ()=>{
-        return <Slot/>
-    }
 
-    console.log('default current month ', currentMonth)
-    console.log('default Prev month ', prevMonth)
-    console.log('first day ',firstDay)
-    console.log('index of first day ',indexFirstDay)
-    console.log('start index',startIndex)
     
 
 
-    // days[new Date().getDay()]} {initialData.day} {months[initialData.month]} {new Date().getFullYear()
-    // console.log('first day', firstDay.getDay())
-    // console.log('index ',indexOfday)
-    // console.log('last day ', lastDay)
+   
     return(
         <div className='container'>
-           
-            {/* <h2> Today is {currentDate.toDateString()} </h2> */}
+               <h1>Welcome to scheduling Calendar </h1>
+        
             <div className='nav-button'>
 
                 <div onClick={()=>{
@@ -115,9 +98,12 @@ const Calendar = ()=>{
                 return (
                    
                     <div className= {new Date().getDate()===day.day && new Date().getMonth()+1===day.month ? ` oneDay current`:`oneDay `}
-                     key={index} onClick={()=>{push(`/slots/${day.day}`)}}>
+                     key={index} onClick={()=>{
+                            setTask({...task,month:day.month,day:day.day});
+
+                            push(`/appts/${day.month}/${day.day}`)}}>
                             
-                        <span className={day.full ? `full` :`available`}>{day.day}</span>
+                        {day.day}
                     </div>
                      
                     )

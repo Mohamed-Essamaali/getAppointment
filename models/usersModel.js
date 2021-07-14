@@ -6,14 +6,20 @@ const find = ()=>{
    const users =  db('users');
     return users
 }
+const findBy = (user)=>{
+return db('users').where(user).select('username','password','id').first()
+}
 const findById =  (id)=>{
     const user = db('users').where(id).first()
     return user
 }
-const add =  async user=>{
+const create =  async user=>{
     const [id] = await db('users').insert(user)
     console.log('id to add ',id)
     return findById(id)
+}
+const login = async user=>{
+    
 }
 
 const update = async (id,changes)=>{
@@ -24,4 +30,4 @@ const remove = async id =>{
     await db('users').where(id).del()
 }
 
-module.exports = {findById,find,add,remove,update}
+module.exports = {findById,find,create,remove,update,findBy}

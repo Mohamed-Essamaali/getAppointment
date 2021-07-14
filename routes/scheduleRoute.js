@@ -9,6 +9,15 @@ router.get('/appts',async (req,res,next)=>{
     const appts = await Appts.getAppts() 
     res.status(200).json(appts)
 })
+
+router.get('/appts/:month/:day', async (req,res,next)=>{
+
+    const month = req.params.month
+    const day = req.params.day
+    const appts = await Appts.getApptByDay(month,day)
+    res.status(200).json(appts)
+})
+
 router.get('/appts/:id', async (req,res,next)=>{
   
         

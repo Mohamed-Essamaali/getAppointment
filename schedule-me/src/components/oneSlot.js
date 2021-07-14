@@ -1,54 +1,58 @@
 import React,{useContext, useState} from 'react'
 import { useParams,useHistory } from 'react-router-dom'
 import { GlobalContext } from '../context/globalContext'
+import  { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import axios from 'axios'
 
 const Slot = props=>{
-
-    const[user,setUser]=useState(
-        {
-        name:'',
-        email:'',
-        // time:'',
-        // date:new Date().toDateString(),
-        
-    }
-    )
+    let {events,setEvents,task,setTask} = useContext(GlobalContext)
+    console.log('task input ',task)
+    console.log('events',events)
     const handleChange = e=>{
-        setUser({...user,[e.target.name]:e.target.value})
+        setTask({...task,[e.target.name]:e.target.value})
     }
-    let {slots,setSlots} = useContext(GlobalContext)
+    
     const params = useParams()
     const {push} = useHistory()
    
     // console.log('time slot selected ',params.slotId)
 
-    const addSlot = user=>{
-        setSlots([...slots,{user,time:params.slotId}])
-        console.log('user',user)
-        console.log('slots', slots)
+    const addEvent = task=>{
+        axios.post('http://localhost:5000/appts',task)
+        .then(appt=>{
+            
+            setEvents([...events,appt.data]); 
+            console.log('data',appt.data.completed)})
+        .catch(err=>console.log('my error is ',err))
+        
         
     }
     
         
     return (
-        <div>
-        <form onSubmit = {(e)=>{
+        <div className='form-container'>
+            <h1>Please Enter the following Information</h1>
+        <Form>
+                <FormGroup>
+                    <Label htmlFor='name'> Name  </Label>
+                    <Input name='name' value={task.name} onChange= {handleChange} placeholder='enter Your Name' />
+                </FormGroup>
+
+                <FormGroup>
+                    <Label htmlFor='email'>Email  </Label>
+                    <Input name='email' value={task.email} onChange= {handleChange} placeholder='enter Your email' />
+                </FormGroup>
+
+                <FormGroup>
+                    <Button onClick={(e)=>{
                         e.preventDefault();
-                        addSlot(user); 
-                        setUser({...user,available:false});
+                        addEvent(task); 
+                      
                         // push('/confirmation')
-                    }
-                }>
-                <label>Name  </label>
-                <input name='name' value={user.name} onChange= {handleChange} placeholder='enter Your Name' />
-                <label>Email  </label>
-                <input name='email' value={user.email} onChange= {handleChange} placeholder='enter Your email' />
-                {/* <label>Time  </label>
-                <input type='time' name='time' value={user.time} onChange= {handleChange} />
-                <label>Date  </label>
-                <input type='date' name='date' value={user.date} onChange= {handleChange} /> */}
-                <button>Submit!</button>
-            </form>
+                    }}>Submit!</Button>
+                    <Button onClick={()=>{push(`/appts/${task.month}/${task.day}`)}}>Cancel</Button>
+                </FormGroup>
+            </Form>
 
         </div>
     )

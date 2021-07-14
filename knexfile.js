@@ -7,8 +7,8 @@ module.exports = {
     useNullAsDefault: true,
     connection: {
       // filename: './data/users.db3',
-      filename: './data/appts.db3'
-    },
+      filename: './data/appts.db3',
+       },
     migrations: {
       directory: "./data/migrations",
 			tableName: "knex_migrations",

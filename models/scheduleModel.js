@@ -7,6 +7,10 @@ const getAppts = ()=>{
     return db('appts')
 }
 
+const getApptByDay = (month,day)=>{
+    return db('appts').where({'day':day,'month':month})
+}
+
 const getApptsById =  id=>{
     return db('appts').where('id',id).first()
 }
@@ -26,4 +30,4 @@ const removeAppt = (id)=>{
     return db('appts').where('id',id).del()
 }
 
-module.exports = {getAppts,getApptsById,addAppt,removeAppt,update}
+module.exports = {getAppts,getApptsById,addAppt,removeAppt,update,getApptByDay}
