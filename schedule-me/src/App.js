@@ -8,6 +8,7 @@ import Confirmation from './components/confirmation';
 import AdminList from './adminList';
 import HomePage from './components/homePage';
 import Register from './components/user/register'
+import Login from './components/user/login'
   
 
 
@@ -15,9 +16,12 @@ function App() {
   return (
     <div exact className="App">
       <Navs/>
-      
-      <Route path='/register'>
+
+      <Route exact path='/register'>
         <Register/>
+      </Route>
+      <Route exact path='/login'>
+        <Login/>
       </Route>
       
       {/* protected route ----protected route below -------*/}

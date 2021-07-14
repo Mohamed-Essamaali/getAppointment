@@ -6,11 +6,9 @@ const Navs = ()=>{
     const {push} = useHistory()
     return(
         <div>
-            <button>Home</button>
-            <button>Login </button>
-            <button onClick={()=>{push('/register') }
-            }
-            >Register </button>
+            <button onClick={()=>{push('/') }}>Home</button>
+            <button onClick={()=>{push('/login') }}>Login </button>
+            <button onClick={()=>{push('/register') }}>Register </button>
         </div>
     )
 }
