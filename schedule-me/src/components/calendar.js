@@ -11,7 +11,7 @@ const Calendar = ()=>{
     const[prevMonth,setPrevMonth] = useState(currentMonth-1)
     // const[currentDate,setCurrentDate] = useState(new Date(new Date().getFullYear(),currentMonth,0))
     console.log('current day ',new Date().getDate())
-    const months = ['January', 'Feb','March', "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    const months = ['January', 'February','March', "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   
     let date = new Date();
@@ -63,8 +63,11 @@ const Calendar = ()=>{
     return(
         <div className='container'>
                <h1>Welcome to scheduling Calendar </h1>
+               
         
             <div className='nav-button'>
+
+            <h2 className='current-month'>{months[currentMonth-1]}</h2>
 
                 <div onClick={()=>{
                     setCurrentMonth(currentMonth-1);

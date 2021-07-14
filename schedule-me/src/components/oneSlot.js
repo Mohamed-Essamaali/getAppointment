@@ -30,8 +30,8 @@ const Slot = props=>{
     
         
     return (
-        <div className='form-container'>
-            <h1>Please Enter the following Information</h1>
+        <div className='form-container container'>
+            <h1>Please Enter the following Information to complete your appointment</h1>
         <Form>
                 <FormGroup>
                     <Label htmlFor='name'> Name  </Label>

@@ -67,24 +67,30 @@ const SlotsList = props=>{
   
     
     return(
-        <div className='slots-container'>
-         
-            {temp.map(slot=>{
-                    if(slot[1]){
-                        return <div key = {slot[0]} className={`available`} 
-    
-                        onClick={()=>{setTask({...task,available:false,time:slot[0]});
-                        push(`/form/${slot[0]}`)}} > 
-                        {slot[0]}:00 -- {slot[0]+1}:00
-                        </div>
-                    }else{
-                        return <div key = {slot[0]} className={`unavailable`}  > 
-                        {slot[0]}:00 -- {slot[0]+1}:00
-                        </div>
-                    }
-                    
-                    
-                })}
+        <div className='container'>
+            <h1>Select your time slot for date {`${task.month}/${task.day}`} </h1>
+        
+            <div className='slots-container'>
+            
+            
+                {temp.map(slot=>{
+                        if(slot[1]){
+                            return <div key = {slot[0]} className={`available`} 
+        
+                            onClick={()=>{setTask({...task,available:false,time:slot[0]});
+                            push(`/form/${slot[0]}`)}} > 
+                            {slot[0]}:00 -- {slot[0]+1}:00
+                            </div>
+                        }else{
+                            return <div key = {slot[0]} className={`unavailable`}  > 
+                            {slot[0]}:00 -- {slot[0]+1}:00
+                            </div>
+                        }
+                        
+                        
+                    })}
+            </div>
+            <button onClick={()=>push('/calendar')}>Return to Calendar view </button>
         </div>
     )
 }
