@@ -6,20 +6,17 @@ const find = ()=>{
    const users =  db('users');
     return users
 }
-const findBy = (user)=>{
-return db('users').where(user).select('username','password','id').first()
+const findBy = (username)=>{
+return db('users').where('username',username).select('username','password').first()
 }
 const findById =  (id)=>{
-    const user = db('users').where(id).first()
+    const user = db('users').where('id',id).first()
     return user
 }
 const create =  async user=>{
     const [id] = await db('users').insert(user)
     console.log('id to add ',id)
     return findById(id)
-}
-const login = async user=>{
-    
 }
 
 const update = async (id,changes)=>{

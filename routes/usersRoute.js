@@ -1,29 +1,39 @@
 const express = require('express')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const router = express.Router()
 router.use(express.json())
 const Users = require('../models/usersModel')
 
 //users
 router.get('/users', async (req,res,next)=>{
-    users = await Users.find()
-    res.status(200).json(users)
+    try{
+        users = await Users.find()
+        res.status(200).json(users)
+    }
+    catch(err){next(err)}
+   
 })
 
 //user by id
 router.get('/users/:id', async (req,res,next)=>{
-    const id = req.params
-    const user = await Users.findById(id)
-    res.status(200).json(user)
+
+    try{
+        const id = req.params
+        const user = await Users.findById(id)
+        res.status(200).json(user)
+    }
+    catch(err){next(err)}
+    
 })
 
 // register 
 router.post('/auth/register', async (req,res,next)=>{
     
     try{
-        const {username,password,phoneNumber} = req.body
-        if(!username || ! password || !phoneNumber){
-            return res.status(404).json({message:"username, password and phoneNumber are required"})
+        const {username,password,email} = req.body
+        if(!username || ! password || !email){
+            return res.status(404).json({message:"username, password and email are required"})
         }
         const user =  await Users.findBy(username)
         if(user){
@@ -33,7 +43,7 @@ router.post('/auth/register', async (req,res,next)=>{
         const newUser = await Users.create({
             username,
             password: await bcrypt.hash(password,12),
-            phoneNumber
+            email
         })
         res.status(201).json(newUser)
     }
@@ -52,9 +62,25 @@ router.post('/auth/register', async (req,res,next)=>{
 
 router.post('/auth/login',async  (req,res,next)=>{
     
-    
-    const newUser =  Users.add(req.body)
-    res.status(200).json(newUser)
+    try{
+        const{username,password} = req.body
+        if(!username || ! password){
+            return res.status(404).json({message:"username, password are required"})
+            
+        }
+        const user = await Users.findBy(username)
+        const validPassword = await bcrypt.compare(password,user.password)
+        if(!validPassword){
+            res.status(401).json({message:'invalid credentials'})
+        }
+        const token = jwt.sign({
+            userId:user.id,
+        },process.env.JWT_SECRET)
+
+        res.status(200).json({token:token})
+
+    }
+    catch(err){next(err)}
 
 
 
