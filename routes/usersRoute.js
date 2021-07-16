@@ -6,7 +6,7 @@ router.use(express.json())
 const Users = require('../models/usersModel')
 
 //users
-router.get('/users', async (req,res,next)=>{
+router.get('https://getappointment.herokuapp.com/users', async (req,res,next)=>{
     try{
         users = await Users.find()
         res.status(200).json(users)
@@ -16,7 +16,7 @@ router.get('/users', async (req,res,next)=>{
 })
 
 //user by id
-router.get('/users/:id', async (req,res,next)=>{
+router.get('https://getappointment.herokuapp.com/users/:id', async (req,res,next)=>{
 
     try{
         const id = req.params
@@ -28,7 +28,7 @@ router.get('/users/:id', async (req,res,next)=>{
 })
 
 // register 
-router.post('/auth/register', async (req,res,next)=>{
+router.post('https://getappointment.herokuapp.com/register', async (req,res,next)=>{
     
     try{
         const {username,password,email} = req.body
@@ -60,7 +60,7 @@ router.post('/auth/register', async (req,res,next)=>{
 
 //login user 
 
-router.post('/auth/login',async  (req,res,next)=>{
+router.post('https://getappointment.herokuapp.com/login',async  (req,res,next)=>{
     
     try{
         const{username,password} = req.body
@@ -86,13 +86,13 @@ router.post('/auth/login',async  (req,res,next)=>{
 
 })
 // update user based on id
-router.put('/users/:id', (req,res,next)=>{
+router.put('https://getappointment.herokuapp.com/users/:id', (req,res,next)=>{
     const id = req.params
     const updatedUser = Users.update(id,req.body)
     res.status(200).json(updatedUser)
 })
 //delete user 
-router.delete('/users/:id', async (req,res,next)=>{
+router.delete('https://getappointment.herokuapp.com/users/:id', async (req,res,next)=>{
     const {id} = req.params
     const user = await Users.remove({id})
     res.status(200).json({message:`user ${user}, id ${id} deleted successfully`})

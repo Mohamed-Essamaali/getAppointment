@@ -3,7 +3,7 @@ const config = require("../knexfile")
 const db = knex(config.development)
 
 const find = ()=>{
-   const users =  db('users');
+    const users =  db('users');
     return users
 }
 const findBy = (username)=>{
