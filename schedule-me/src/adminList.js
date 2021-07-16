@@ -10,7 +10,7 @@ const AdminList = ()=>{
 
     useEffect(()=>{
         axios
-        .get('http://localhost:5000/appts')
+        .get('https://getappointment.herokuapp.com/appts')
         .then(appts=>{
             setEvents(appts.data)
             console.log('data in admin',appts.data)

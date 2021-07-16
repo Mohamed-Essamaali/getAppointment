@@ -18,7 +18,7 @@ const Slot = props=>{
     // console.log('time slot selected ',params.slotId)
 
     const addEvent = task=>{
-        axios.post('http://localhost:5000/appts',task)
+        axios.post('https://getappointment.herokuapp.com/appts',task)
         .then(appt=>{
             
             setEvents([...events,appt.data]); 

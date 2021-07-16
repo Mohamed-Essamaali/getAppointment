@@ -24,7 +24,7 @@ const SlotsList = props=>{
 
     useEffect(()=>{
        
-            axios.get(`http://localhost:5000/appts/${task.month}/${task.day}`)
+            axios.get(`https://getappointment.herokuapp.com/appts/${task.month}/${task.day}`)
             .then(res=>{console.log('res data',res);setAppts(...appts,res.data)})
             .catch(err=>console.log(err))
 
