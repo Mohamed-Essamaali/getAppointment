@@ -1,6 +1,7 @@
 import axios from "axios"
 import React,{useEffect,useState,useContext} from "react"
 import { GlobalContext } from "./context/globalContext"
+import axios from 'axios'
 
 const AdminList = ()=>{
 
