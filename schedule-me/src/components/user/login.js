@@ -12,7 +12,7 @@ const Login = ()=>{
 
     const validateUser = user=>{
         axios
-        .post('https://get-appointment.vercel.app/auth/login',user)
+        .post('https://get-appointment.vercel.app/login',user)
         .then(res=>{console.log('res register ',res.data); push('/calendar')})
         .catch(err=>{console.log(err)})
     }
