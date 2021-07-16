@@ -12,7 +12,7 @@ const Register = ()=>{
 
     const addUser = user=>{
         axios
-        .post('http://localhost:5000/auth/register',user)
+        .post('https://get-appointment.vercel.app/auth/register',user)
         .then(res=>{console.log('res register ',res.data); push('/login')})
         .catch(err=>{console.log(err)})
     }
