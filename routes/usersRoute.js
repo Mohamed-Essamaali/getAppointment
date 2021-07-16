@@ -28,7 +28,7 @@ router.get('https://getappointment.herokuapp.com/users/:id', async (req,res,next
 })
 
 // register 
-router.post('https://getappointment.herokuapp.com/register', async (req,res,next)=>{
+router.post('https://github.com/Rob--W/cors-anywhere/https://getappointment.herokuapp.com/register', async (req,res,next)=>{
     
     try{
         const {username,password,email} = req.body
@@ -60,7 +60,7 @@ router.post('https://getappointment.herokuapp.com/register', async (req,res,next
 
 //login user 
 
-router.post('https://getappointment.herokuapp.com/login',async  (req,res,next)=>{
+router.post('https://github.com/Rob--W/cors-anywhere/https://getappointment.herokuapp.com/login',async  (req,res,next)=>{
     
     try{
         const{username,password} = req.body
@@ -86,13 +86,13 @@ router.post('https://getappointment.herokuapp.com/login',async  (req,res,next)=>
 
 })
 // update user based on id
-router.put('https://getappointment.herokuapp.com/users/:id', (req,res,next)=>{
+router.put('https://github.com/Rob--W/cors-anywhere/https://getappointment.herokuapp.com/users/:id', (req,res,next)=>{
     const id = req.params
     const updatedUser = Users.update(id,req.body)
     res.status(200).json(updatedUser)
 })
 //delete user 
-router.delete('https://getappointment.herokuapp.com/users/:id', async (req,res,next)=>{
+router.delete('https://github.com/Rob--W/cors-anywhere/https://getappointment.herokuapp.com/users/:id', async (req,res,next)=>{
     const {id} = req.params
     const user = await Users.remove({id})
     res.status(200).json({message:`user ${user}, id ${id} deleted successfully`})
