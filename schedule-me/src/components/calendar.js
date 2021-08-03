@@ -67,7 +67,7 @@ const Calendar = ()=>{
         
             <div className='nav-button'>
 
-            <h2 className='current-month'>{months[currentMonth-1]}</h2>
+            <h2 className='current-month'>{months[currentMonth-1] }</h2>
 
                 <div onClick={()=>{
                     setCurrentMonth(currentMonth-1);

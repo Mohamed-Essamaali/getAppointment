@@ -3,8 +3,10 @@ import React, {  createContext, useState } from 'react'
 export const GlobalContext = createContext()
 
 const ContextProvider = ({children})=>{
+    const[loggedIn,setLoggedIn] = useState(localStorage.getItem('token')? true:false)
     const[slots,setSlots] = useState([])
     const[events,setEvents] = useState([])
+    const[activeUser,setActiveUser] = useState()
    
     const initialTask = {
         name:'',
@@ -15,7 +17,7 @@ const ContextProvider = ({children})=>{
     }
     const[task,setTask] = useState(initialTask)
     return (
-        <GlobalContext.Provider value={{slots,setSlots,task,setTask,events,setEvents}}>
+        <GlobalContext.Provider value={{slots,setSlots,task,setTask,events,setEvents,activeUser,setActiveUser,loggedIn,setLoggedIn}}>
             {children}
         </GlobalContext.Provider>
     )

@@ -9,7 +9,7 @@ const {restrict} = require('../../middleware/users-middleware')
 
 
 //users
-router.get('/users' ,async (req,res,next)=>{
+router.get('/users' ,restrict(), async (req,res,next)=>{
 
     try{
         users = await Users.find()
@@ -20,7 +20,7 @@ router.get('/users' ,async (req,res,next)=>{
 })
 
 //user by id
-router.get('/users/:id', async (req,res,next)=>{
+router.get('/users/:id', restrict(), async (req,res,next)=>{
 
     try{
         const id = req.params.id
@@ -99,7 +99,7 @@ router.post('/login',async  (req,res,next)=>{
 })
 //logout
 
-router.get('/logout',async (req,res,next)=>{
+router.get('/logout',restrict(), async (req,res,next)=>{
 
     try{
         req.session.destroy(err=>{
