@@ -1,12 +1,16 @@
 const express = require('express')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const router = express.Router()
 router.use(express.json())
-const Users = require('../models/usersModel')
+const Users = require('./usersModel')
+const {restrict} = require('../../middleware/users-middleware')
+
+
 
 //users
-router.get('https://getappointment.herokuapp.com/users', async (req,res,next)=>{
+router.get('/users' ,async (req,res,next)=>{
+
     try{
         users = await Users.find()
         res.status(200).json(users)
@@ -16,11 +20,15 @@ router.get('https://getappointment.herokuapp.com/users', async (req,res,next)=>{
 })
 
 //user by id
-router.get('https://getappointment.herokuapp.com/users/:id', async (req,res,next)=>{
+router.get('/users/:id', async (req,res,next)=>{
 
     try{
-        const id = req.params
+        const id = req.params.id
         const user = await Users.findById(id)
+        if(!user){
+            res.status(404).json({message:`no user exist with id ${id}`})
+        }
+        
         res.status(200).json(user)
     }
     catch(err){next(err)}
@@ -28,11 +36,11 @@ router.get('https://getappointment.herokuapp.com/users/:id', async (req,res,next
 })
 
 // register 
-router.post('https://github.com/Rob--W/cors-anywhere/https://getappointment.herokuapp.com/register', async (req,res,next)=>{
+router.post('/register', async (req,res,next)=>{
     
     try{
         const {username,password,email} = req.body
-        if(!username || ! password || !email){
+        if(!username || !password || !email){
             return res.status(404).json({message:"username, password and email are required"})
         }
         const user =  await Users.findBy(username)
@@ -60,7 +68,7 @@ router.post('https://github.com/Rob--W/cors-anywhere/https://getappointment.hero
 
 //login user 
 
-router.post('https://github.com/Rob--W/cors-anywhere/https://getappointment.herokuapp.com/login',async  (req,res,next)=>{
+router.post('/login',async  (req,res,next)=>{
     
     try{
         const{username,password} = req.body
@@ -73,10 +81,14 @@ router.post('https://github.com/Rob--W/cors-anywhere/https://getappointment.hero
         if(!validPassword){
             res.status(401).json({message:'invalid credentials'})
         }
+     
         const token = jwt.sign({
             userId:user.id,
         },process.env.JWT_SECRET)
 
+        res.cookie('token',token)  //tell the client to save this token in its cookie jar
+        // req.session.user = user
+        // console.log('session',req.session)
         res.status(200).json({token:token})
 
     }
@@ -85,16 +97,21 @@ router.post('https://github.com/Rob--W/cors-anywhere/https://getappointment.hero
 
 
 })
-// update user based on id
-router.put('https://github.com/Rob--W/cors-anywhere/https://getappointment.herokuapp.com/users/:id', (req,res,next)=>{
-    const id = req.params
-    const updatedUser = Users.update(id,req.body)
-    res.status(200).json(updatedUser)
-})
-//delete user 
-router.delete('https://github.com/Rob--W/cors-anywhere/https://getappointment.herokuapp.com/users/:id', async (req,res,next)=>{
-    const {id} = req.params
-    const user = await Users.remove({id})
-    res.status(200).json({message:`user ${user}, id ${id} deleted successfully`})
+//logout
+
+router.get('/logout',async (req,res,next)=>{
+
+    try{
+        req.session.destroy(err=>{
+            if(err){
+                next(err)
+            } else{
+                res.send({message:'logout successfully'})
+                res.status(204).end()
+            }
+        })
+    }
+    catch(err){next(err)}
+    next()
 })
 module.exports = router

@@ -1,5 +1,5 @@
 const knex = require("knex")
-const config = require("../knexfile")
+const config = require("../../knexfile")
 const db = knex(config.development)
 
 
@@ -11,8 +11,8 @@ const getApptByDay = (month,day)=>{
     return db('appts').where({'day':day,'month':month})
 }
 
-const getApptsById =  id=>{
-    return db('appts').where('id',id).first()
+const getApptsById =  (user_id)=>{
+    return db('appts').where('user_id',user_id).first()
 }
 
 const addAppt = async appt=>{
