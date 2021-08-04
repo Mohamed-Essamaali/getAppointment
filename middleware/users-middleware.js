@@ -44,19 +44,24 @@ function restrict(){
     
         try{
             // const token = req.cookies.token
-            const token = req.headers.authorization
-            if(!token){
-                return res.status(403).json({message:'token is required'})
-            }
-           
+            const token = req.cookies.jwt
+            if(token){
+                // return res.status(403).json({message:'token is required'})
+            
             jwt.verify(token,process.env.JWT_SECRET,(err,decoded)=>{
                 if(err){
                     res.status(403).json({message:'invalid token'})
+                    res.redirect('/login')
+                }else{
+                    console.log(decoded)
+                    next()
                 }
-                req.token = decoded
+                // req.token = decoded
             })
-            next()
-
+          
+        }else{
+            res.redirect('/login')
+        }
 
         }
         catch(err){next(err)        }

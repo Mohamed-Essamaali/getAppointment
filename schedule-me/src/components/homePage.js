@@ -1,5 +1,5 @@
-import React,{useState,useContext} from "react"
-import  {Button,Card,CardImg } from 'reactstrap';
+import React from "react"
+import  {Card} from 'reactstrap';
 import { useHistory } from "react-router-dom";
 
 const HomePage= ()=>{

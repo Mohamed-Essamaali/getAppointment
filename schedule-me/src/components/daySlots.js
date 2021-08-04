@@ -1,20 +1,17 @@
 import React,{useState,useContext, useEffect} from 'react'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
-import Slot from './oneSlot'
 import { GlobalContext } from '../context/globalContext'
 
 const SlotsList = props=>{
-    let {slots,setSlots,task,setTask} = useContext(GlobalContext)
-    let[slotGen,setSlotGen] = useState([])
+    let {task,setTask} = useContext(GlobalContext)
     // let[filterSlot,setFilterSlot] = useState({})
     
     let [appts,setAppts] = useState([])
     let temp = []
     let d = {}
 
-  
-    const[workHours,setWorkHours] = useState([])
+
     const {push}=useHistory()
 
     for(let i = 8;i<=19;i++){

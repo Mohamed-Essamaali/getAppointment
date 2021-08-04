@@ -1,10 +1,9 @@
 import React,{useState,useContext, useEffect} from 'react'
-import {Route, Link, useParams,useHistory} from 'react-router-dom'
-import Slot from '../components/oneSlot'
+import {useHistory} from 'react-router-dom'
 import { GlobalContext } from '../context/globalContext'
 
 const Calendar = ()=>{
-    let {task,setTask,slots,setSlots} = useContext(GlobalContext)
+    let {task,setTask,slots} = useContext(GlobalContext)
     // const[startIndex,setStartIndex]= useState(0)
     const {push} = useHistory()
     const[currentMonth,setCurrentMonth] = useState(new Date().getMonth()+1)
@@ -57,6 +56,8 @@ const Calendar = ()=>{
 
 
     
+console.log('slots in calendar',slots)
+// console.log('activeUser in calendar',jwtDecode(activeUser).userId)
 
 
    

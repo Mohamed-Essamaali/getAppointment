@@ -6,7 +6,8 @@ import jwt_decode from 'jwt-decode'
 
 const Login = ()=>{
 
-    const {setLoggedIn,activeUser,setActiveUser} = useContext(GlobalContext)
+    const {setLoggedIn,loggedIn,activeUser,setActiveUser} = useContext(GlobalContext)
+
     const{push} = useHistory()
 
     const[user,setUser] = useState({username:'',password:''})
@@ -18,14 +19,18 @@ const Login = ()=>{
         axios
         .post('https://getappointment.herokuapp.com/login',user)
         .then(res=>{localStorage.setItem('token',res.data.token);
-        setActiveUser(jwt_decode(res.data.token).userId);
+        console.log('log in response token: ',res.data.token);
+        const decoded = jwt_decode('token',res.data.token);
+        setActiveUser(decoded.userId);
+        console.log('decoded ',decoded);
         setLoggedIn(true);
-        console.log('logged in ',true , " activeUser:", activeUser)
-        console.log('res login ',res.data);
-         push('/calendar')})
+        // console.log('logged in: ',loggedIn , ",  activeUser: ", activeUser)
+     
+        //  push('/calendar')
+        })
         .catch(err=>{console.log(err)})
     }
-
+    console.log('logged in: ',loggedIn , ",  activeUser: ", activeUser)
     return(
         <div>
             <form>

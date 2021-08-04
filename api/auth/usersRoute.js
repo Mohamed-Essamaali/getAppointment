@@ -20,7 +20,7 @@ router.get('/users' ,restrict(), async (req,res,next)=>{
 })
 
 //user by id
-router.get('/users/:id', restrict(), async (req,res,next)=>{
+router.get('/users/:id', async (req,res,next)=>{
 
     try{
         const id = req.params.id

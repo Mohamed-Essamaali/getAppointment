@@ -1,7 +1,7 @@
-import React,{useContext, useState} from 'react'
-import { useParams,useHistory } from 'react-router-dom'
+import React,{useContext} from 'react'
+import { useHistory } from 'react-router-dom'
 import { GlobalContext } from '../context/globalContext'
-import  { Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import  { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import axios from 'axios'
 
 const Slot = props=>{
@@ -12,7 +12,7 @@ const Slot = props=>{
         setTask({...task,[e.target.name]:e.target.value})
     }
     
-    const params = useParams()
+ 
     const {push} = useHistory()
    
     // console.log('time slot selected ',params.slotId)
