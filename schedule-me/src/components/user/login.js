@@ -19,16 +19,14 @@ const Login = ()=>{
         axios
         .post('https://getappointment.herokuapp.com/login',user)
         .then(res=>{localStorage.setItem('token',res.data.token);
-        console.log('log in response token: ',res.data.token);
-        const decoded = jwt_decode('token',res.data.token);
+        const decoded = jwt_decode(res.data.token);
         setActiveUser(decoded.userId);
-        console.log('decoded ',decoded);
         setLoggedIn(true);
         // console.log('logged in: ',loggedIn , ",  activeUser: ", activeUser)
-     
-        //  push('/calendar')
+        
+         push('/calendar')
         })
-        .catch(err=>{console.log(err)})
+        .catch(err=>{console.log('login error ',err)})
     }
     console.log('logged in: ',loggedIn , ",  activeUser: ", activeUser)
     return(

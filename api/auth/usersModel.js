@@ -7,7 +7,7 @@ const find = ()=>{
     return users
 }
 const findBy = (username)=>{
-return db('users').where('username',username).select('username','password').first()
+return db('users').where('username',username).select('id','username','password').first()
 }
 const findById =  (id)=>{
     return db('users').where('id',id).first()

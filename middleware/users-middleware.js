@@ -39,33 +39,30 @@ const validateApptData = ()=>{
 }
 
 
-function restrict(){
-    return async (req,res,next)=>{
+const restrict =  ()=>{
+    return  (req,res,next)=>{
     
         try{
-            // const token = req.cookies.token
-            const token = req.cookies.jwt
-            if(token){
-                // return res.status(403).json({message:'token is required'})
-            
-            jwt.verify(token,process.env.JWT_SECRET,(err,decoded)=>{
+            const token = req.cookies.token
+            console.log('token in restrict mode',token, 'req.cookies: ',req.cookies)
+            if(!token){
+                res.status(403).json({message:'token required'})
+            }
+            jwt.verify(token,process.env.JWT_SECRET,async (err,decoded)=>{
                 if(err){
                     res.status(403).json({message:'invalid token'})
-                    res.redirect('/login')
-                }else{
-                    console.log(decoded)
+                    console.log(err.message)
                     next()
                 }
-                // req.token = decoded
             })
-          
-        }else{
-            res.redirect('/login')
-        }
+          next()
+        
 
         }
         catch(err){next(err)        }
     }
 }
+
+
 
 module.exports = {restrict,validateApptData,validateUserData}

@@ -5,11 +5,11 @@ import  { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import axios from 'axios'
 
 const Slot = props=>{
-    let {events,setEvents,task,setTask} = useContext(GlobalContext)
+    let {events,setEvents,task,setTask,activerUser} = useContext(GlobalContext)
     console.log('task input ',task)
     console.log('events',events)
     const handleChange = e=>{
-        setTask({...task,[e.target.name]:e.target.value})
+        setTask({...task,[e.target.name]:e.target.value,user_id:activerUser})
     }
     
  
@@ -18,7 +18,7 @@ const Slot = props=>{
     // console.log('time slot selected ',params.slotId)
 
     const addEvent = task=>{
-        axios.post('https://getappointment.herokuapp.com/appts',task)
+        axios.post(`https://getappointment.herokuapp.com/appts/${activerUser}`,task)
         .then(appt=>{
             
             setEvents([...events,appt.data]); 
