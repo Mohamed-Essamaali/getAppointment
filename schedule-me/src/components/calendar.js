@@ -54,12 +54,6 @@ const Calendar = ()=>{
 
   
 
-
-    
-console.log('slots in calendar',slots)
-// console.log('activeUser in calendar',jwtDecode(activeUser).userId)
-
-
    
     return(
         <div className='container'>

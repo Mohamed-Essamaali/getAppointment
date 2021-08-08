@@ -6,6 +6,7 @@ exports.up = async function(knex) {
         tb.string('username').notNull().unique()
         tb.text('password').notNull()
         tb.string('email').notNull().unique()
+        tb.text('role').notNull()
         
       })
   

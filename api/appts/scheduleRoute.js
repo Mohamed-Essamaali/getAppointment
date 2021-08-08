@@ -6,11 +6,37 @@ const {restrict} = require('../../middleware/users-middleware')
 
 // get list of appointments
 
-router.get('/appts',restrict(),async (req,res,next)=>{
-    const appts = await Appts.getAppts() 
-    res.status(200).json(appts)
+router.get('/appts/:user_id/:role',restrict(),async (req,res,next)=>{
+ 
+    try{
+        const role = req.params.role
+        const userId = req.params.user_id
+        const appt = await Appts.getApptsById(userId)
+
+        if(!appt){
+            res.status(400).json({message:`user id ${userId} has no appointment yet`})
+        }
+        else
+            {
+
+            if(role==='admin'){
+
+                const appts = await Appts.getAppts() 
+                res.status(200).json(appts)
+            }
+            const oneUserAppts = await Appts.getApptsById(userId)
+            res.status(200).json(oneUserAppts)
+        }
+        
+       
+    }
+   
+    catch(err){next(err)}
+    
+    
 })
 
+// get appointments based on month and day
 router.get('/appts/:month/:day', restrict(), async (req,res,next)=>{
 
     const month = req.params.month
@@ -19,23 +45,7 @@ router.get('/appts/:month/:day', restrict(), async (req,res,next)=>{
     res.status(200).json(appts)
 })
 
-router.get('/appts/:user_id', restrict(), async (req,res,next)=>{
-  
-        
-        try{
-            const id = req.params.user_id
-            const appt = await Appts.getApptsById(id)
-            if(!appt){
-                res.status(400).json({message:`user id ${id} has no appointment yet`})
-            }else{
-                res.status(200).json(appt)
-            }
-           
-        }
-       
-        catch(err){next(err)}
-    
-})
+
 
 //adding new appointment
 router.post('/appts/users/:user_id', restrict(), async (req,res,next)=>{

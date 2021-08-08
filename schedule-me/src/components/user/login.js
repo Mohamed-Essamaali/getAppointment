@@ -6,7 +6,7 @@ import jwt_decode from 'jwt-decode'
 
 const Login = ()=>{
 
-    const {setLoggedIn,loggedIn,activeUser,setActiveUser} = useContext(GlobalContext)
+    const {setLoggedIn,loggedIn,activeUser,setActiveUser,role,setRole} = useContext(GlobalContext)
 
     const{push} = useHistory()
 
@@ -21,10 +21,11 @@ const Login = ()=>{
         .then(res=>{localStorage.setItem('token',res.data.token);
         const decoded = jwt_decode(res.data.token);
         setActiveUser(decoded.userId);
+        setRole(decoded.role)
         setLoggedIn(true);
         // console.log('logged in: ',loggedIn , ",  activeUser: ", activeUser)
         
-         push('/calendar')
+         push('/dashboard')
         })
         .catch(err=>{console.log('login error ',err)})
     }

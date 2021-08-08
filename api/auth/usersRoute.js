@@ -6,7 +6,13 @@ router.use(express.json())
 const Users = require('./usersModel')
 const {restrict} = require('../../middleware/users-middleware')
 
+//welcome message
 
+router.get('/',(req,res,next)=>{
+
+    return res.status(200).json({message:'Welcome'})
+
+})
 
 //users
 router.get('/users' ,restrict(), async (req,res,next)=>{
@@ -47,23 +53,20 @@ router.post('/register', async (req,res,next)=>{
         if(user){
             return res.status(409).json({message: "username is already taken"})
         }
-
         const newUser = await Users.create({
             username,
             password: await bcrypt.hash(password,12),
-            email
+            email,
+            role: await username!=process.env.USER_ROLE? 'basic':'admin'
         })
+       
+
         res.status(201).json(newUser)
     }
     catch(err){console.log('register errors',err)
             res.send(err)
             next(err)
         }
-    
-       
-   
-   
-    
 })
 
 //login user 
@@ -77,7 +80,7 @@ router.post('/login',async  (req,res,next)=>{
             
         }
         const user = await Users.findBy(username)
-        console.log('user in login ',user)
+      
         const validPassword = await bcrypt.compare(password,user.password)
         if(!validPassword){
             res.status(401).json({message:'invalid credentials'})
@@ -85,12 +88,10 @@ router.post('/login',async  (req,res,next)=>{
      
         const token = jwt.sign({
             userId:user.id,
+            role:user.role,
         },process.env.JWT_SECRET)
 
         res.cookie('token',token)  //tell the client to save this token in its cookie jar
-        req.token = user
-        // console.log('session',req.session)
-        console.log('req.token: ',req.token)
         res.status(200).json({token:token})
 
     }

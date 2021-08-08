@@ -9,6 +9,7 @@ import AdminList from './adminList';
 import HomePage from './components/homePage';
 import Register from './components/user/register'
 import Login from './components/user/login'
+import Dashboard from './components/dashboard';
   
 
 
@@ -26,9 +27,9 @@ function App() {
       
       {/* protected route ----protected route below -------*/}
     
-    <Route exact path='/admin'>
+    {/* <Route exact path='/admin'>
       <AdminList/>
-    </Route>
+    </Route> */}
    {/* protected route ---- above -------*/}
    
    <Route exact path='/'>
@@ -46,8 +47,11 @@ function App() {
     <Route exact path='/appts/:month/:day'>
       <SlotsList/>
     </Route>
-    <Route exact path='/confirmation'>
+    {/* <Route exact path='/confirmation'>
       <Confirmation/>
+    </Route> */}
+    <Route exact path='/dashboard'>
+      <Dashboard/>
     </Route>
     
     </div>

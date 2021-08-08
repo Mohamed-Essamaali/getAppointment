@@ -7,6 +7,7 @@ const ContextProvider = ({children})=>{
     const[slots,setSlots] = useState([])
     const[events,setEvents] = useState([])
     const[activeUser,setActiveUser] = useState()
+    const[role,setRole] = useState()
    
     const initialTask = {
         name:'',
@@ -17,7 +18,7 @@ const ContextProvider = ({children})=>{
     }
     const[task,setTask] = useState(initialTask)
     return (
-        <GlobalContext.Provider value={{slots,setSlots,task,setTask,events,setEvents,activeUser,setActiveUser,loggedIn,setLoggedIn}}>
+        <GlobalContext.Provider value={{slots,setSlots,task,setTask,events,setEvents,activeUser,setActiveUser,loggedIn,setLoggedIn,role,setRol}}>
             {children}
         </GlobalContext.Provider>
     )

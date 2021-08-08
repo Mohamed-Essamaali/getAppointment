@@ -7,7 +7,7 @@ const Register = ()=>{
 
     const[user,setUser] = useState({username:'',email:'',password:''})
     const handleChanges = e=>{
-        setUser({...user,[e.target.name]:e.target.value})
+        setUser({...user,[e.target.name]:e.target.value,role: 'basic'})
     }
 
     const addUser = user=>{

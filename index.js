@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser')
 const server = express()
 const userRoute = require('./api/auth/usersRoute')
 const apptRoute = require('./api/appts/scheduleRoute')
+const {setUser} = require('./middleware/users-middleware')
 const db = require('./data/config-db')
 const port = process.env.PORT || 5000
 
@@ -19,20 +20,11 @@ const port = process.env.PORT || 5000
 server.use(cors())
 server.use(helmet())
 
-server.use(session({
-    resave: false,
-    saveUninitialized: false,
-    secret: process.env.JWT_SECRET,
-    // store: new knexSessionStore({
-    //     knex: db,
-    //     createTable: true  
-    // })
-
-}))
 
 server.use(cookieParser()) // automatically parse incoming cookies and make them available in req.cookies 
 
 server.use(userRoute)
+// server.use(setUser)
 server.use(apptRoute)
 
 

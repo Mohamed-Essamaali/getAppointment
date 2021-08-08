@@ -12,7 +12,9 @@ const getApptByDay = (month,day)=>{
 }
 
 const getApptsById =  (user_id)=>{
-    return db('appts').where('user_id',user_id).first()
+    console.log('user id in schedule model',user_id)
+    
+    return db('appts').where('user_id',user_id)
 }
 
 const addAppt = async appt=>{

@@ -19,10 +19,6 @@ const create =  async user=>{
     return findById(id)
 }
 
-// const update = async (id,changes)=>{
-//     await db('users').update(changes).where(id)
-//     return findById(id)
-// }
 const remove = async id =>{
     await db('users').where(id).del()
 }

@@ -11,11 +11,14 @@ const Confirmation = ()=>{
     console.log('slots in confirmation',events)
     console.log('Active User in confirmation',activeUser)
    
-    // useEffect(()=>{
-    //     axios.get(`https://get-appointment.vercel.app/appts/${activeUser}`)
-    //     .then(res=>{setSlots(res.data);console.log('res data in cnfirmation',res.data)})
-    //     .catch(err=>console.log(err))
-    // },[])
+    useEffect(()=>{
+        axios.get(`https://get-appointment.vercel.app/appts/${activeUser}`)
+        .then(res=>{
+            // setSlots(res.data);
+            console.log('res data in cnfirmation',res.data)
+        })
+        .catch(err=>console.log(err))
+    },[])
     return (<div>
 
     </div>)

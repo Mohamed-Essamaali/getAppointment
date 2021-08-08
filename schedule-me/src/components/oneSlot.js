@@ -22,6 +22,7 @@ const Slot = props=>{
         .then(appt=>{
             
             setEvents([...events,appt.data]); 
+            push('/confirmation')
             console.log('data',appt.data.completed)})
         .catch(err=>console.log('my error is ',err))
         
