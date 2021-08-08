@@ -18,7 +18,7 @@ const ContextProvider = ({children})=>{
     }
     const[task,setTask] = useState(initialTask)
     return (
-        <GlobalContext.Provider value={{slots,setSlots,task,setTask,events,setEvents,activeUser,setActiveUser,loggedIn,setLoggedIn,role,setRol}}>
+        <GlobalContext.Provider value={{slots,setSlots,task,setTask,events,setEvents,activeUser,setActiveUser,loggedIn,setLoggedIn,role,setRole}}>
             {children}
         </GlobalContext.Provider>
     )
