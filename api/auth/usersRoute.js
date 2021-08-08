@@ -85,7 +85,7 @@ router.post('/login',async  (req,res,next)=>{
         if(!validPassword){
             res.status(401).json({message:'invalid credentials'})
         }
-     
+        console.log('user in login ',user)
         const token = jwt.sign({
             userId:user.id,
             role:user.role,

@@ -20,6 +20,7 @@ const Login = ()=>{
         .post('https://getappointment.herokuapp.com/login',user)
         .then(res=>{localStorage.setItem('token',res.data.token);
         const decoded = jwt_decode(res.data.token);
+        console.log('decoded ',decoded)
         setActiveUser(decoded.userId);
         setRole(decoded.role)
         setLoggedIn(true);
@@ -29,7 +30,7 @@ const Login = ()=>{
         })
         .catch(err=>{console.log('login error ',err)})
     }
-    console.log('logged in: ',loggedIn , ",  activeUser: ", activeUser)
+    // console.log('logged in: ',loggedIn , ",  activeUser: ", activeUser)
     return(
         <div>
             <form>
