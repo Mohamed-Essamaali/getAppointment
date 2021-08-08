@@ -1,22 +1,23 @@
 import React,{useContext,useState,useEffect} from 'react'
 import { GlobalContext } from '../context/globalContext'
+import axios from 'axios'
 
 const Dashboard = ()=>{
     const {activeUser,role} = useContext(GlobalContext)
-    const[user,setUser] = useState('Simo')
+    const[user,setUser] = useState('blablablabla')
     const[appts,setAppts] = useState([])
 
     console.log('IN DASHBOARD INFO active user: ',activeUser, 'current user name',user, 'appts ',appts )
     useEffect(()=>{
 
         //get name of the current user logged in
-        fetch(`https://getappointment.herokuapp.com/users/${activeUser}`)
-        .then(res=>{console.log('res data',res.data)})
+        axios.get(`https://getappointment.herokuapp.com/users/${activeUser}`)
+        .then(res=>{console.log('res active user ',setUser(res.data.username))})
         .catch(err=>console.log(err))
         
         // get appts based on user logged in
-        fetch(`https://getappointment.herokuapp.com/appts/${activeUser}/${role}`)
-        .then(res=>{console.log('res data',res.data);setAppts(res.data)})
+        axios.get(`https://getappointment.herokuapp.com/appts/${activeUser}/${role}`)
+        .then(res=>{console.log('res appts',res);})
         .catch(err=>{console.log(err)})
 
     },[])
@@ -24,7 +25,13 @@ const Dashboard = ()=>{
     return(
         <div>
             <h1>Welcome {user}</h1>
-            {appts.map(appt=>{
+
+            {
+                appts.length < 0?
+                <h2>No Appointments had scheduled yet</h2>
+
+            :
+            appts.map(appt=>{
                  return(
                             <div>
                                 <h2>{appt.name}</h2>
